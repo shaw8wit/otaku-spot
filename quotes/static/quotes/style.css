@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css2?family=Bellefair&family=Pompiere&display=swap');
+
+html {
+    font-family: 'Pompiere', cursive;
+    font-size: 28px;
+    font-weight: 600;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.menu {
+    width: 100vw;
+    height: 10vh;
+    background-color: aquamarine;
+}
+
+/* font-family: 'Bellefair', serif; */
