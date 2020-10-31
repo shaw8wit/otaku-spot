@@ -77,10 +77,10 @@ WSGI_APPLICATION = 'Anime.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'osabxjzv',
-        'USER': 'osabxjzv',
-        'PASSWORD': 'vWXzimDpFtY33ldfuEy41KN0dIeWFtcI',
-        'HOST': 'lallah.db.elephantsql.com',
+        'NAME': 'wsrxtqjx',
+        'USER': 'wsrxtqjx',
+        'PASSWORD': '2Cex-rq5rwKe-6vtP13Z63jXQnkcCEMI',
+        'HOST': 'john.db.elephantsql.com',
         'PORT': '5432',
     }
 }
