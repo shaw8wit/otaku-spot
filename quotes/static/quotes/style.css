@@ -2,7 +2,7 @@
 
 html {
     font-family: 'Pompiere', cursive;
-    font-size: 28px;
+    font-size: 1.5rem;
     font-weight: 600;
 }
 
@@ -13,8 +13,13 @@ body {
 
 .menu {
     width: 100vw;
-    height: 10vh;
+    height: 12vh;
     background-color: aquamarine;
+}
+
+.card {
+    max-width: 600px !important;
+    text-align: center;
 }
 
 /* font-family: 'Bellefair', serif; */
