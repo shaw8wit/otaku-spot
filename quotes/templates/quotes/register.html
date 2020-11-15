@@ -2,13 +2,63 @@
 
 {% block body %}
 
-<h2>Register</h2>
+<div class="center">
+    <div class="card">
+        <div class="card-content px-5">
+            <h2 class="title">Register</h2>
 
-{% if message %}
-<div>{{ message }}</div>
-{% endif %}
+            {% if message %}
+            <div class="notification is-warning"><button class="delete"></button>{{ message }}</div>
+            {% endif %}
 
-<form action="{% url 'register' %}" method="post">
+            <form action="{% url 'register' %}" method="post">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label for="username" class="label">Username:</label>
+                    <div class="control">
+                        <input autofocus class="input" type="text" name="username" placeholder="Username">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="email" class="label">Email:</label>
+                    <div class="control">
+                        <input autofocus class="input" type="text" name="email" placeholder="Email">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="password" class="label">Password:</label>
+                    <div class="control">
+                        <input class="input" type="password" name="password" placeholder="Password">
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="confirmation" class="label">Confirm password:</label>
+                    <div class="control">
+                        <input class="input" type="password" name="confirmation" placeholder="Confirm Password">
+                    </div>
+                </div>
+
+                <input class="button register" type="submit" value="Register">
+            </form>
+        </div>
+
+        <center>or</center>
+
+        <a href="{% url 'login' %}">
+            <footer class="card-footer mt-4">
+                <p class="card-footer-item login">
+                    Login
+                </p>
+            </footer>
+        </a>
+    </div>
+</div>
+
+<!-- <form action="{% url 'register' %}" method="post">
     {% csrf_token %}
     <input class="form-control" autofocus type="text" name="username" placeholder="Username">
 
@@ -21,6 +71,6 @@
     <input class="btn btn-primary" type="submit" value="Register">
 </form>
 
-Already have an account? <a href="{% url 'login' %}">LogIn here.</a>
+Already have an account? <a href="{% url 'login' %}">LogIn here.</a> -->
 
 {% endblock %}
