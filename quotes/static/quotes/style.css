@@ -11,12 +11,6 @@ body {
     padding: 0px;
 }
 
-.menu {
-    width: 100vw;
-    height: 10vh;
-    background-color: aquamarine;
-}
-
 .login {
     background-color: #009b58fa !important;
     color: white !important;
@@ -29,7 +23,7 @@ body {
 
 .center {
     width: 100%;
-    height: 90vh;
+    height: 100%;
 
     display: flex;
     justify-content: center;
@@ -40,5 +34,6 @@ body {
     flex: 1;
     max-width: 500px !important;
 }
+
 
 /* font-family: 'Bellefair', serif; */
