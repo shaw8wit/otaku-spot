@@ -14,7 +14,7 @@
 <body class="has-navbar-fixed-bottom">
     <nav class="navbar is-fixed-bottom is-dark" role="navigation">
         <div class="navbar-brand">
-            <a href="#" class="navbar-item px-5">
+            <a href="{% url 'index' %}" class="navbar-item px-5">
                 <img src="https://cutewallpaper.org/21/sharingan-eye-wallpaper/Sharingan-Eyes-Wallpapers-Wallpaper-Cave-Sharingan-eyes-.jpg"
                     alt="Icon" />
             </a>
@@ -22,10 +22,10 @@
 
         <div class="navbar-menu">
             <div class="navbar-start">
-                <a href="#" class="navbar-item px-5">
+                <a href="{% url 'search' %}" class="navbar-item px-5">
                     Search
                 </a>
-                <a href="#" class="navbar-item px-5">
+                <a href="{% url 'display' r=0 %}" class="navbar-item px-5">
                     Random
                 </a>
                 <div class="navbar-item has-dropdown has-dropdown-up is-hoverable">
@@ -33,12 +33,14 @@
                         More
                     </a>
                     <div class="navbar-dropdown">
+                        {% if user.is_authenticated %}
                         <a class="navbar-item">
                             Profile
                         </a>
                         <a class="navbar-item">
                             Notifications
                         </a>
+                        {% endif %}
                         <a class="navbar-item">
                             About
                         </a>
@@ -75,11 +77,7 @@
         {% endblock %}
     </div>
 
-    <script src="{% static 'quotes/script.js' %}">
-        function toggleNav() {
-            console.log("Sparts");
-        }
-    </script>
+    <script src="{% static 'quotes/script.js' %}"></script>
 
 </body>
 
