@@ -5,10 +5,12 @@ from django.contrib.auth import authenticate, login, logout
 
 from .models import User
 
+import requests
+
 
 def index(request):
 
-    # Authenticated users view their inbox
+    # Authenticated users view their home page
     if request.user.is_authenticated:
         return render(request, "quotes/index.html")
 
@@ -67,3 +69,13 @@ def register(request):
         return HttpResponseRedirect(reverse("index"))
     else:
         return render(request, "quotes/register.html")
+
+
+def search(request):
+    return render(request, "quotes/search.html")
+
+
+def display(request, r):
+    return render(request, "quotes/display.html", {
+        'value': "random" if r == 0 else "from search"
+    })
