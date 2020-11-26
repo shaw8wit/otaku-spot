@@ -7,6 +7,8 @@ from .models import User
 
 import requests
 
+url = 'https://animechanapi.xyz/api/quotes'
+
 
 def index(request):
 
@@ -76,6 +78,23 @@ def search(request):
 
 
 def display(request, r):
-    return render(request, "quotes/display.html", {
-        'value': "random" if r == 0 else "from search"
-    })
+    """
+    Returns the data to be displayed on the random quotes link or from search
+    """
+    if r == 0:
+        response = requests.get(url + '/random')
+        data = response.json()
+        # data = {'status': 'ok', 'statusCode': 200, 'data': [
+        #     {'quote': "I'll always be by your side. You'll never be alone. You have as many hopes as there are stars that light up the sky. The wind that brushes your skin is a presentiment of tomorrow. Come, lets walk in time with the song of the fairies...", 'character': 'Mavis Vermillion', 'anime': 'Fairy Tail'}]}
+        data = data['data'][0]
+        return render(request, "quotes/display.html", {
+            'quote': data['quote'],
+            'character': data['character'],
+            'anime': data['anime'],
+        })
+    else:
+        return render(request, "quotes/display.html", {
+            'quote': "from search",
+            'character': "null",
+            'anime': "null",
+        })

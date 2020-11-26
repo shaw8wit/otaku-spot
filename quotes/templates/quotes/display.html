@@ -2,6 +2,20 @@
 
 {% block body %}
 
-<div class="center">{{value}}</div>
+<div class="center">
+    <div class="card display">
+        <div class="card-content px-6">
+            <h2 class="title quote">{{ quote }}</h2>
+            <h4 class="subtitle pt-3">
+                - {{ character }}
+            </h4>
+        </div>
+        <div class="card-footer">
+            <div class="card-footer-item anime">
+                {{ anime }}
+            </div>
+        </div>
+    </div>
+</div>
 
 {% endblock %}
