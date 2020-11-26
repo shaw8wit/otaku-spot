@@ -1,9 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Bellefair&family=Pompiere&display=swap');
 
 html {
-    font-family: 'Pompiere', cursive;
-    font-size: 1.5rem;
-    font-weight: 600;
     background: #deeb6e !important;
 }
 
@@ -31,10 +28,34 @@ body {
     align-items: center;
 }
 
-.center>* {
+.user {
     flex: 1;
-    max-width: 500px !important;
+    max-width: 550px !important;
 }
 
+.card-content {
+    padding: 2rem 2.5rem 0rem 2.5rem !important;
+}
+
+.subtitle {
+    text-align: right !important;
+}
+
+.anime {
+    font-family: 'Pompiere', cursive;
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+.display {
+    max-width: 900px !important;
+    background-color: rgba(255, 255, 255, 0.4) !important;
+}
+
+.quote {
+    font-size: calc(2vw + 2vh) !important;
+    /* font-weight: 500 !important; */
+    word-spacing: 0.5rem !important;
+}
 
 /* font-family: 'Bellefair', serif; */

@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Quotes{% endblock %}</title>
+    <title>{% block title %}{% endblock %}Quotes</title>
     <link rel="stylesheet" href="{% static 'quotes/style.css' %}">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
 </head>
@@ -16,7 +16,7 @@
         <div class="navbar-brand">
             <a href="{% url 'index' %}" class="navbar-item px-5">
                 <img src="https://cutewallpaper.org/21/sharingan-eye-wallpaper/Sharingan-Eyes-Wallpapers-Wallpaper-Cave-Sharingan-eyes-.jpg"
-                    alt="Icon" />
+                    alt="Application Icon" />
             </a>
             <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
                 <span aria-hidden="true"></span>
@@ -77,10 +77,8 @@
         </div>
     </nav>
 
-    <div class="container">
-        {% block body %}
-        {% endblock %}
-    </div>
+    {% block body %}
+    {% endblock %}
 
     <script src="{% static 'quotes/script.js' %}"></script>
 
