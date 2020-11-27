@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Bellefair&family=Pompiere&display=swap');
 
 html {
-    background: #deeb6e !important;
+    background: #dff178 !important;
 }
 
 body {
@@ -48,14 +48,39 @@ body {
 }
 
 .display {
-    max-width: 900px !important;
-    background-color: rgba(255, 255, 255, 0.4) !important;
+    max-width: 980px !important;
+    background-color: rgba(255, 255, 255, 0.35) !important;
 }
 
 .quote {
     font-size: calc(2vw + 2vh) !important;
     /* font-weight: 500 !important; */
     word-spacing: 0.5rem !important;
+    /* text-align: center; */
+}
+
+.input {
+    background-color: rgba(255, 255, 255, 0.45) !important;
+}
+
+.search {
+    font-family: 'Pompiere', cursive;
+    font-size: 5rem;
+    font-weight: 600;
+    line-height: 1.1;
+}
+
+.searchButton {
+    padding: 1rem 2rem !important;
+    border-radius: 5rem;
+    outline: none;
+    font-family: 'Bellefair', serif;
+    border: none;
+    color: white;
+    font-weight: 600;
+    letter-spacing: 1px;
+    font-size: 1.5rem;
+    background: #9ba850;
 }
 
 /* font-family: 'Bellefair', serif; */
