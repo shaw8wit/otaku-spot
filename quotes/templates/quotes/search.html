@@ -2,10 +2,35 @@
 
 {% block body %}
 
-<div class="center">Search
-    <a href="{% url 'display' r=1 %}" class="navbar-item px-5">
-        Search
-    </a>
+<div class="center">
+    <center>
+        <form action="{% url 'display' r=1 %}" method="post">
+            {% csrf_token %}
+
+            <div class="field">
+                <div class="control">
+                    <div class="select is-rounded">
+                        <select>
+                            <option>Anime</option>
+                            <option>Character</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="control has-icons-left is-large">
+                    <input autofocus class="input is-large is-rounded search" type="text" name="value"
+                        placeholder="Enter Value">
+                    <span class="icon is-large is-left">
+                        <i class="fas fa-search"></i>
+                    </span>
+                </div>
+            </div>
+
+            <input class="searchButton" type="submit" value="Search">
+        </form>
+    </center>
 </div>
 
 
