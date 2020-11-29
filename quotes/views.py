@@ -88,9 +88,9 @@ def display(request):
         value = request.POST["value"]
         default = f'?{option}={value}'
 
-    response = requests.get(url + default)
-    data = response.json()
     try:
+        response = requests.get(url + default)
+        data = response.json()
         data = data['data'][0]
     except:
         data = {'quote': "Couldn't find what you were looking for",
@@ -101,3 +101,7 @@ def display(request):
         'character': data['character'],
         'anime': data['anime'],
     })
+
+
+def about(request):
+    return render(request, "quotes/about.html")
