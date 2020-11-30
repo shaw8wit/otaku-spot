@@ -9,6 +9,8 @@ import requests
 
 url = 'https://animechanapi.xyz/api/quotes'
 
+d = 0
+
 
 def index(request):
 
@@ -77,7 +79,7 @@ def search(request):
     return render(request, "quotes/search.html")
 
 
-def display(request):
+def display(request, n):
     """
     Returns the data to be displayed on the random quotes link or from search
     """
@@ -91,7 +93,11 @@ def display(request):
     try:
         response = requests.get(url + default)
         data = response.json()
-        data = data['data'][0]
+        d = data
+        if d != 0:
+            data = d['data'][n]
+        else:
+            data = data['data'][n]
     except:
         data = {'quote': "Couldn't find what you were looking for",
                 'character': "Shouvit Pradhan", 'anime': "Anime Quotes Application"}
@@ -100,6 +106,7 @@ def display(request):
         'quote': data['quote'],
         'character': data['character'],
         'anime': data['anime'],
+        'n': n,
     })
 
 

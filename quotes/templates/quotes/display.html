@@ -3,7 +3,7 @@
 {% block body %}
 
 <div class="center">
-    <!-- <div class="card display">
+    <div class="card display">
         <div class="card-content px-6">
             <h2 class="title quote">{{ quote }}</h2>
             <h4 class="subtitle pt-3">
@@ -11,21 +11,15 @@
             </h4>
         </div>
         <div class="card-footer">
+            <a href="{% url 'display' n=1 %}" class="card-footer-item">
+                <i class="fas fa-arrow-left"></i>
+            </a>
             <div class="card-footer-item anime">
                 {{ anime }}
             </div>
-        </div>
-    </div> -->
-    <div class="flip-card card">
-        <div class="flip-card-inner">
-            <div class="flip-card-front">
-                <img src="img_avatar.png" alt="Avatar" style="width:300px;height:300px;">
-            </div>
-            <div class="flip-card-back">
-                <h1>John Doe</h1>
-                <p>Architect & Engineer</p>
-                <p>We love that guy</p>
-            </div>
+            <a href="{% url 'display' n=2 %}" class="card-footer-item">
+                <i class="fas fa-arrow-right"></i>
+            </a>
         </div>
     </div>
 </div>
