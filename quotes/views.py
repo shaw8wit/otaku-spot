@@ -7,10 +7,6 @@ from .models import User
 
 import requests
 
-url = 'https://animechanapi.xyz/api/quotes'
-
-d = 0
-
 
 def index(request):
 
@@ -84,23 +80,22 @@ def display(request, n):
     Returns the data to be displayed on the random quotes link or from search
     """
 
-    default = '/random'
+    url = 'https://animechanapi.xyz/api/quotes'
     if request.method == "POST":
         option = request.POST["option"]
         value = request.POST["value"]
-        default = f'?{option}={value}'
+        url += f'?{option}={value}'
 
     try:
-        response = requests.get(url + default)
-        data = response.json()
-        d = data
-        if d != 0:
-            data = d['data'][n]
-        else:
-            data = data['data'][n]
+        if not request.session.has_key('d') or n == 0:
+            response = requests.get(url)
+            d = response.json()
+            request.session['d'] = d['data']
+        data = request.session['d']
+        data = data[n]
     except:
         data = {'quote': "Couldn't find what you were looking for",
-                'character': "Shouvit Pradhan", 'anime': "Anime Quotes Application"}
+                'character': "Shouvit Pradhan", 'anime': "Something Went Wrong"}
 
     return render(request, "quotes/display.html", {
         'quote': data['quote'],
@@ -112,3 +107,6 @@ def display(request, n):
 
 def about(request):
     return render(request, "quotes/about.html")
+
+
+# * del session
