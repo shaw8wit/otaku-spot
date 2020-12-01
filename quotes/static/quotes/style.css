@@ -53,7 +53,7 @@ body {
 }
 
 .quote {
-    font-size: calc(2vw + 2vh) !important;
+    font-size: calc(1.5vw + 1.5vh + 1rem) !important;
     word-spacing: 0.5rem !important;
 }
 

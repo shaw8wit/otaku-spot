@@ -11,15 +11,19 @@
             </h4>
         </div>
         <div class="card-footer">
-            <a href="{% url 'display' 1 %}" class="card-footer-item">
+            {% if n > 1 %}
+            <a href="{% url 'display' n|add:'-1' %}" class="card-footer-item">
                 <i class="fas fa-arrow-left"></i>
             </a>
+            {% endif %}
             <div class="card-footer-item anime">
                 {{ anime }}
             </div>
-            <a href="{% url 'display' 2 %}" class="card-footer-item">
+            {% if n < 11 %}
+            <a href="{% url 'display' n|add:'1' %}" class="card-footer-item">
                 <i class="fas fa-arrow-right"></i>
             </a>
+            {% endif %}
         </div>
     </div>
 </div>

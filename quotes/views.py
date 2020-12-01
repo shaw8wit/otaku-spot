@@ -80,28 +80,33 @@ def display(request, n):
     Returns the data to be displayed on the random quotes link or from search
     """
 
-    url = 'https://animechanapi.xyz/api/quotes'
+    n -= 1
+    url = 'https://animechanapi.xyz/api/quotes/'
     if request.method == "POST":
         option = request.POST["option"]
         value = request.POST["value"]
-        url += f'?{option}={value}'
+        if not request.session.has_key(value):
+            url += f'?{option}={value}'
+            response = requests.get(url)
+            d = response.json()
+            request.session[value] = d['data']
 
-    try:
-        if not request.session.has_key('d') or n == 0:
+    else:
+        if not request.session.has_key('d') or n == -1:
+            n = 0
             response = requests.get(url)
             d = response.json()
             request.session['d'] = d['data']
-        data = request.session['d']
-        data = data[n]
-    except:
-        data = {'quote': "Couldn't find what you were looking for",
-                'character': "Shouvit Pradhan", 'anime': "Something Went Wrong"}
+        value = 'd'
+    d = request.session[value]
+    n = max(n, 0)
+    data = d[n % 10]
 
     return render(request, "quotes/display.html", {
         'quote': data['quote'],
         'character': data['character'],
         'anime': data['anime'],
-        'n': n,
+        'n': n + 1,
     })
 
 
