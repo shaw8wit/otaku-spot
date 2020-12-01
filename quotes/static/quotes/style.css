@@ -53,7 +53,7 @@ body {
 }
 
 .quote {
-    font-size: calc(1.5vw + 1.5vh + 1rem) !important;
+    font-size: calc(1.4vw + 1.2vh + 0.75rem) !important;
     word-spacing: 0.5rem !important;
 }
 
@@ -78,4 +78,8 @@ body {
     font-size: 1.5rem;
     background: #00000050;
     cursor: pointer;
+}
+
+.smol {
+    font-size: calc(0.5vh + 1.5vw + 0.5rem) !important;
 }

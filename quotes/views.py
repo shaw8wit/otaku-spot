@@ -80,38 +80,36 @@ def display(request, n):
     Returns the data to be displayed on the random quotes link or from search
     """
 
-    n -= 1
     url = 'https://animechanapi.xyz/api/quotes/'
-    if request.method == "POST":
-        option = request.POST["option"]
-        value = request.POST["value"]
-        if not request.session.has_key(value):
-            url += f'?{option}={value}'
-            response = requests.get(url)
+    try:
+        if n == 0:
+            response = requests.get(url + 'random')
             d = response.json()
-            request.session[value] = d['data']
-
-    else:
-        if not request.session.has_key('d') or n == -1:
-            n = 0
-            response = requests.get(url)
-            d = response.json()
-            request.session['d'] = d['data']
-        value = 'd'
-    d = request.session[value]
-    n = max(n, 0)
-    data = d[n % 10]
+            data = d['data'][0]
+        elif request.method == "POST":
+            option = request.POST["option"]
+            value = request.POST["value"]
+            request.session['last'] = value
+            if not request.session.has_key(value):
+                url += f'?{option}={value}'
+                response = requests.get(url)
+                d = response.json()
+                request.session[value] = d['data']
+                print(f'\n\nloaded once\n\n')
+        if n != 0:
+            d = request.session[request.session['last']]
+            data = d[n % 10]
+    except:
+        data = {'quote': "Couldn't find what you were looking for",
+                'character': "Shouvit Pradhan", 'anime': "Something went wrong"}
 
     return render(request, "quotes/display.html", {
         'quote': data['quote'],
         'character': data['character'],
         'anime': data['anime'],
-        'n': n + 1,
+        'n': n,
     })
 
 
 def about(request):
     return render(request, "quotes/about.html")
-
-
-# * del session
