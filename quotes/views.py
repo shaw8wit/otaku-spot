@@ -14,20 +14,27 @@ def index(request):
 
     # Authenticated users view their home page
     if request.user.is_authenticated:
-        if not request.session.has_key('all'):
-            response = requests.get(url)
-            d = response.json()
-            request.session['all'] = d
-        else:
-            d = request.session['all']
-
-        return render(request, "quotes/index.html", {
-            'data': d['data']
-        })
+        return HttpResponseRedirect(reverse("allquotes", kwargs={'page': 1}))
 
     # Everyone else is prompted to sign in
     else:
         return HttpResponseRedirect(reverse("register"))
+
+
+def allquotes(request, page):
+    if not request.session.has_key(str(page)):
+        response = requests.get(url + f"?page={page}")
+        d = response.json()
+        d = d['data']
+        request.session[str(page)] = d
+        print(f"\n\nfetching page {page}\n\n")
+    else:
+        d = request.session[str(page)]
+    return render(request, "quotes/index.html", {
+        'data': d,
+        'page': page,
+        'l': [i for i in range(1, 11)]
+    })
 
 
 def login_view(request):

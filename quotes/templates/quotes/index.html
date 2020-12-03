@@ -16,6 +16,28 @@
     </div>
 
     {% endfor %}
+    <nav class="pagination is-medium is-centered is-rounded py-4 my-2" role="navigation" aria-label="pagination">
+        <a href="{% url 'allquotes' page|add:'-1' %}" {% if page == 1 %}disabled{% endif %}
+            class="pagination-previous">Previous</a>
+        <a href="{% url 'allquotes' page|add:'1' %}" {% if page == 10 %}disabled{% endif %}
+            class="pagination-next">Next</a>
+        <ul class="pagination-list">
+            <!-- <li><a class="pagination-link" aria-label="Goto page 1">1</a></li>
+            <li><span class="pagination-ellipsis">&hellip;</span></li>
+            <li><a class="pagination-link" aria-label="Goto page 45">45</a></li>
+            <li><a class="pagination-link is-current" aria-label="Page 46" aria-current="page">46</a></li>
+            <li><a class="pagination-link" aria-label="Goto page 47">47</a></li>
+            <li><span class="pagination-ellipsis">&hellip;</span></li>
+            <li><a class="pagination-link" aria-label="Goto page 86">86</a></li> -->
+            {% for i in l %}
+            {% if page == i %}
+            <li><a href="{% url 'allquotes' i %}" class="pagination-link is-current">{{ i }}</a></li>
+            {% else %}
+            <li><a href="{% url 'allquotes' i %}" class="pagination-link">{{ i }}</a></li>
+            {% endif %}
+            {% endfor %}
+        </ul>
+    </nav>
 </div>
 
 {% endblock %}
