@@ -52,6 +52,10 @@ body {
     background-color: rgba(255, 255, 255, 0.35) !important;
 }
 
+.shade {
+    background-color: rgba(255, 255, 255, 0.3) !important;
+}
+
 .quote {
     font-size: calc(1.4vw + 1.2vh + 0.75rem) !important;
     word-spacing: 0.5rem !important;

@@ -2,8 +2,20 @@
 
 {% block body %}
 
-<div class="center">
-    Index page
+<div class="container">
+    {% for i in data %}
+
+    <div class="card mt-5 shade pb-2">
+        <div class="card-header">
+            <h1 class="card-header-title">{{ i.anime }}</h1>
+        </div>
+        <div class="card-content">
+            <p class="title">{{ i.quote }}</p>
+            <h4 class="subtitle py-4">- {{ i.character }}</h4>
+        </div>
+    </div>
+
+    {% endfor %}
 </div>
 
 {% endblock %}
