@@ -7,16 +7,34 @@ from .models import User
 
 import requests
 
+url = 'https://animechanapi.xyz/api/quotes/'
+
 
 def index(request):
 
     # Authenticated users view their home page
     if request.user.is_authenticated:
-        return render(request, "quotes/index.html")
+        return HttpResponseRedirect(reverse("allquotes", kwargs={'page': 1}))
 
     # Everyone else is prompted to sign in
     else:
         return HttpResponseRedirect(reverse("register"))
+
+
+def allquotes(request, page):
+    if not request.session.has_key(str(page)):
+        response = requests.get(url + f"?page={page}")
+        d = response.json()
+        d = d['data']
+        request.session[str(page)] = d
+        print(f"\n\nfetching page {page}\n\n")
+    else:
+        d = request.session[str(page)]
+    return render(request, "quotes/index.html", {
+        'data': d,
+        'page': page,
+        'l': [i for i in range(1, 11)]
+    })
 
 
 def login_view(request):
@@ -77,10 +95,9 @@ def search(request):
 
 def display(request, n):
     """
-    Returns the data to be displayed on the random quotes link or from search
+    Returns the data to be displayed on the random quotes link or from search.
     """
 
-    url = 'https://animechanapi.xyz/api/quotes/'
     try:
         if n == 0:
             response = requests.get(url + 'random')
@@ -91,11 +108,9 @@ def display(request, n):
             value = request.POST["value"]
             request.session['last'] = value
             if not request.session.has_key(value):
-                url += f'?{option}={value}'
-                response = requests.get(url)
+                response = requests.get(url + f'?{option}={value}')
                 d = response.json()
                 request.session[value] = d['data']
-                print(f'\n\nloaded once\n\n')
         if n != 0:
             d = request.session[request.session['last']]
             data = d[n % 10]
