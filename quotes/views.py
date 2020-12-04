@@ -128,3 +128,7 @@ def display(request, n):
 
 def about(request):
     return render(request, "quotes/about.html")
+
+
+def contact(request):
+    return render(request, "quotes/contact.html")
