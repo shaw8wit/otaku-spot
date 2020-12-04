@@ -43,8 +43,13 @@ body {
 
 .anime {
     font-family: 'Pompiere', cursive;
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-weight: 600;
+}
+
+.character {
+    font-family: "Comic Sans MS", "Comic Sans", cursive;
+    font-size: 18px !important;
 }
 
 .display {
