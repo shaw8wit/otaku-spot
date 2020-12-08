@@ -11,7 +11,21 @@
         </div>
         <div class="card-content">
             <p class="title quote">{{ i.quote }}</p>
-            <h4 class="subtitle py-4 character">- {{ i.character }}</h4>
+            <div class="columns is-mobile">
+                <div class="column is-2">
+                    <a href="#" class="card-footer-item saveQuote">
+                        <i class="fa fa-plus"></i>
+                    </a>
+                </div>
+                <div class="column is-2">
+                    <a href="#" class="card-footer-item shareQuote">
+                        <i class="fa fa-share-alt"></i>
+                    </a>
+                </div>
+                <div class="column is-8">
+                    <h4 class="subtitle character">- {{ i.character }}</h4>
+                </div>
+            </div>
         </div>
     </div>
 
