@@ -30,7 +30,7 @@ body {
 
 .user {
     flex: 1;
-    max-width: 550px !important;
+    max-width: 500px !important;
 }
 
 .card-content {
@@ -53,7 +53,6 @@ body {
 }
 
 .display {
-    max-width: 980px !important;
     background-color: rgba(255, 255, 255, 0.35) !important;
 }
 
@@ -90,5 +89,37 @@ body {
 }
 
 .smol {
-    font-size: calc(0.5vh + 1.5vw + 0.5rem) !important;
+    font-size: calc(0.5vh + 1.4vw + 0.5rem) !important;
+}
+
+.fa-whatsapp {
+    color: white;
+}
+
+.fa-facebook {
+    color: blue;
+}
+
+.fa-envelope-o {
+    color: red;
+}
+
+.fa-phone {
+    color: green;
+}
+
+.fa-linkedin {
+    color: lightseagreen;
+}
+
+.fa-code {
+    color: lime;
+}
+
+.fa-instagram {
+    color: violet;
+}
+
+.fa-github-alt {
+    color: black;
 }

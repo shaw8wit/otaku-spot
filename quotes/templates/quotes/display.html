@@ -3,9 +3,9 @@
 {% block body %}
 
 <div class="center">
-    <div class="card display">
+    <div class="card display container">
         <div class="card-content px-6">
-            <h2 class="title quote {% if quote|length > 300 %}smol{% endif %}">{{ quote }}</h2>
+            <h2 class="title quote {% if quote|length > 350 %}smol{% endif %}">{{ quote }}</h2>
             <h4 class="subtitle pt-3 character">
                 - {{ character }}
             </h4>
@@ -13,19 +13,25 @@
         <div class="card-footer">
             {% if n > 1 %}
             <a href="{% url 'display' n|add:'-1' %}" class="card-footer-item">
-                <i class="fa fa-arrow-left"></i>
+                <i class="fa fa-lg fa-arrow-left"></i>
             </a>
             {% endif %}
+            <a href="#" class="card-footer-item saveQuote">
+                <i class="fa fa-lg fa-plus"></i>
+            </a>
             <div class="card-footer-item anime">
                 {{ anime }}
             </div>
+            <a href="#" class="card-footer-item shareQuote">
+                <i class="fa fa-lg fa-share-alt"></i>
+            </a>
             {% if n < 10 and n != 0 %}
             <a href="{% url 'display' n|add:'1' %}" class="card-footer-item">
-                <i class="fa fa-arrow-right"></i>
+                <i class="fa fa-lg fa-arrow-right"></i>
             </a>
             {% elif n == 0 %}
             <a href="{% url 'display' n %}" class="card-footer-item">
-                <i class="fa fa-retweet" aria-hidden="true"></i>
+                <i class="fa fa-lg fa-retweet" aria-hidden="true"></i>
             </a>
             {% endif %}
         </div>
