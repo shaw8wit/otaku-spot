@@ -14,3 +14,17 @@ menu.addEventListener('click', () => {
     menu.classList.toggle('is-active');
     $target.classList.toggle('is-active');
 });
+
+function getData(e) {
+    while (true) {
+        if (e.classList.contains('card')) break;
+        e = e.parentNode;
+    }
+    let anime = e.querySelector('.anime').innerText;
+    let character = e.querySelector('.character').innerText;
+    let quote = e.querySelector('.quote').innerText;
+    // ! data parsed now create and save to user model
+}
+
+let saveQuote = document.querySelectorAll('.saveQuote');
+saveQuote.forEach(e => e.addEventListener('click', () => getData(e)));
