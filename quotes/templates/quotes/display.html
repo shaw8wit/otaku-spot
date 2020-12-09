@@ -7,7 +7,7 @@
         <div class="card-content px-6">
             <h2 class="title quote {% if quote|length > 350 %}smol{% endif %}">{{ quote }}</h2>
             <h4 class="subtitle pt-3 character">
-                - {{ character }}
+                {{ character }}
             </h4>
         </div>
         <div class="card-footer">
@@ -35,6 +35,7 @@
             </a>
             {% endif %}
         </div>
+        <div class="is-hidden notification is-warning"><button class="delete"></button>Add message</div>
     </div>
 </div>
 
