@@ -23,7 +23,19 @@ function getData(e) {
     let anime = e.querySelector('.anime').innerText;
     let character = e.querySelector('.character').innerText;
     let quote = e.querySelector('.quote').innerText;
+    console.log(anime, character, quote);
     // ! data parsed now create and save to user model
+
+    fetch('/quotes/addData', {
+        method: 'POST',
+        body: JSON.stringify({
+            anime: anime,
+            character: character,
+            quote: quote,
+        })
+    }).then(response => {
+        if (response.status !== 204) return response.json();
+    }).then(err => err && alert(err.error));
 }
 
 let saveQuote = document.querySelectorAll('.saveQuote');
