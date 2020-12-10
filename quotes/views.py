@@ -1,9 +1,11 @@
 from django.urls import reverse
 from django.db import IntegrityError
+from django.http import HttpResponse, JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import HttpResponseRedirect, render
 from django.contrib.auth import authenticate, login, logout
 
-from .models import User
+from .models import User, Data
 
 import requests
 
@@ -132,3 +134,13 @@ def about(request):
 
 def contact(request):
     return render(request, "quotes/contact.html")
+
+
+@csrf_exempt
+def addData(request):
+    if request.method == "POST":
+        print('\n IN \n')
+        return HttpResponse(status=204)
+    return JsonResponse({
+        "error": "POST request required."
+    }, status=400)
