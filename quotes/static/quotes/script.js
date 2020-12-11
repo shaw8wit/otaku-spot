@@ -16,15 +16,11 @@ menu.addEventListener('click', () => {
 });
 
 function getData(e) {
-    while (true) {
-        if (e.classList.contains('card')) break;
-        e = e.parentNode;
-    }
     let anime = e.querySelector('.anime').innerText;
     let character = e.querySelector('.character').innerText;
     let quote = e.querySelector('.quote').innerText;
-    console.log(anime, character, quote);
-    // ! data parsed now create and save to user model
+    let notification = e.querySelector('.notification');
+    let text;
 
     fetch('/quotes/addData', {
         method: 'POST',
@@ -35,8 +31,16 @@ function getData(e) {
         })
     }).then(response => {
         if (response.status !== 204) return response.json();
-    }).then(err => err && alert(err.error));
+        text = "Quote saved successfully!";
+    }).then(err => {
+        if (err) {
+            text = err.error;
+        }
+    }).then(e => {
+        notification.querySelector('span').innerText = text;
+        notification.classList.toggle('is-hidden');
+    });
 }
 
 let saveQuote = document.querySelectorAll('.saveQuote');
-saveQuote.forEach(e => e.addEventListener('click', () => getData(e)));
+saveQuote.forEach(e => e.addEventListener('click', () => getData(e.closest('.card'))));
