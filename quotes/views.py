@@ -3,11 +3,13 @@ from django.db import IntegrityError
 from django.http import HttpResponse, JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.shortcuts import HttpResponseRedirect, render
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth import authenticate, login, logout
 
 from .models import User, Data
 
 import requests
+import json
 
 url = 'https://animechanapi.xyz/api/quotes/'
 
@@ -139,7 +141,24 @@ def contact(request):
 @csrf_exempt
 def addData(request):
     if request.method == "POST":
-        print('\n IN \n')
+        content = json.loads(request.body)
+        if request.user.is_authenticated:
+            anime = content['anime']
+            character = content['character']
+            quote = content['quote']
+            try:
+                data = Data.objects.get(
+                    anime=anime, character=character, quote=quote)
+            except Data.DoesNotExist:
+                data = Data.objects.create(
+                    anime=anime, character=character, quote=quote)
+            data.user.add(request.user)
+            data.save()
+            return HttpResponse(status=204)
+        else:
+            return JsonResponse({
+                "error": "Login to save quotes."
+            }, status=400)
         return HttpResponse(status=204)
     return JsonResponse({
         "error": "POST request required."
