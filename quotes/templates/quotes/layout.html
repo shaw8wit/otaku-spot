@@ -39,7 +39,7 @@
                     </a>
                     <div class="navbar-dropdown">
                         {% if user.is_authenticated %}
-                        <a class="navbar-item">
+                        <a href="{% url 'profile' %}" class="navbar-item">
                             Profile
                         </a>
                         {% endif %}

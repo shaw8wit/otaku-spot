@@ -5,7 +5,7 @@
 <div class="container">
     {% for i in data %}
 
-    <div class="card mt-5 display">
+    <div class="card my-4 display">
         <div class="card-header">
             <h1 class="card-header-title anime">{{ i.anime }}</h1>
         </div>
@@ -14,7 +14,7 @@
             <div class="columns is-mobile">
                 <div class="column is-2">
                     <a href="#" class="card-footer-item saveQuote">
-                        <i class="fa fa-plus"></i>
+                        <i class="fa fa-trash-o"></i>
                     </a>
                 </div>
                 <div class="column is-2">
@@ -30,22 +30,14 @@
         <div class="is-hidden notification is-warning"><button class="delete"></button><span>Message</span></div>
     </div>
 
+    {% empty %}
+
+    <div class="center">
+        <div class="notification is-warning"><button class="delete"></button>No Quotes saved yet!</div>
+    </div>
+
     {% endfor %}
-    <nav class="pagination is-medium is-centered is-rounded py-4 my-2" role="navigation" aria-label="pagination">
-        <a href="{% url 'allquotes' page|add:'-1' %}" {% if page == 1 %}disabled{% endif %}
-            class="pagination-previous">Previous</a>
-        <a href="{% url 'allquotes' page|add:'1' %}" {% if page == 10 %}disabled{% endif %}
-            class="pagination-next">Next</a>
-        <ul class="pagination-list">
-            {% for i in l %}
-            {% if page == i %}
-            <li><a href="{% url 'allquotes' i %}" class="pagination-link is-current">{{ i }}</a></li>
-            {% else %}
-            <li><a href="{% url 'allquotes' i %}" class="pagination-link">{{ i }}</a></li>
-            {% endif %}
-            {% endfor %}
-        </ul>
-    </nav>
+
 </div>
 
 {% endblock %}

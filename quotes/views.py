@@ -152,8 +152,9 @@ def addData(request):
             except Data.DoesNotExist:
                 data = Data.objects.create(
                     anime=anime, character=character, quote=quote)
-            data.user.add(request.user)
-            data.save()
+                data.save()
+            request.user.data.add(data)
+            request.user.save()
             return HttpResponse(status=204)
         else:
             return JsonResponse({
@@ -163,3 +164,10 @@ def addData(request):
     return JsonResponse({
         "error": "POST request required."
     }, status=400)
+
+
+@login_required
+def profile(request):
+    return render(request, "quotes/profile.html", {
+        'data': request.user.data.all(),
+    })
