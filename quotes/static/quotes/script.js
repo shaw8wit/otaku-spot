@@ -44,7 +44,7 @@ function getData(e) {
     }).then(e => {
         notification.querySelector('span').innerText = text;
         notification.classList.toggle('is-hidden');
-        window.location.reload();
+        if (icon.classList.contains('profile')) window.location.reload();
     });
 }
 
