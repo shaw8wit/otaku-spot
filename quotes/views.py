@@ -149,11 +149,12 @@ def addData(request):
             try:
                 data = Data.objects.get(
                     anime=anime, character=character, quote=quote)
+                request.user.data.remove(data)
             except Data.DoesNotExist:
                 data = Data.objects.create(
                     anime=anime, character=character, quote=quote)
                 data.save()
-            request.user.data.add(data)
+                request.user.data.add(data)
             request.user.save()
             return HttpResponse(status=204)
         else:

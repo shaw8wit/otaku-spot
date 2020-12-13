@@ -2,7 +2,7 @@
     var $notification = $delete.parentNode;
 
     $delete.addEventListener('click', () => {
-        $notification.parentNode.removeChild($notification);
+        $notification.classList.add('is-hidden');
     })
 });
 
@@ -20,6 +20,7 @@ function getData(e) {
     let character = e.querySelector('.character').innerText;
     let quote = e.querySelector('.quote').innerText;
     let notification = e.querySelector('.notification');
+    let icon = e.querySelector('.fa');
     let text;
 
     fetch('/quotes/addData', {
@@ -31,14 +32,19 @@ function getData(e) {
         })
     }).then(response => {
         if (response.status !== 204) return response.json();
-        text = "Quote saved successfully!";
     }).then(err => {
-        if (err) {
-            text = err.error;
+        if (icon.classList.contains('fa-plus')) {
+            icon.classList.replace('fa-plus', 'fa-trash-o');
+            text = "Quote saved to profile successfully!";
+        } else {
+            icon.classList.replace('fa-trash-o', 'fa-plus');
+            text = "Quote deleted from profile successfully!";
         }
+        if (err) text = err.error;
     }).then(e => {
         notification.querySelector('span').innerText = text;
         notification.classList.toggle('is-hidden');
+        if (icon.classList.contains('profile')) window.location.reload();
     });
 }
 

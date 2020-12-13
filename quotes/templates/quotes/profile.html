@@ -3,9 +3,16 @@
 {% block body %}
 
 <div class="container">
+
+    <div class="columns is-mobile mt-6">
+        <div class="column title">{{ user.username }}</div>
+        <div class="column title">{{ user.email }}</div>
+        <button class="column button is-narrow is-dark">Edit</button>
+    </div>
+
     {% for i in data %}
 
-    <div class="card my-4 display">
+    <div class="card mb-5 display">
         <div class="card-header">
             <h1 class="card-header-title anime">{{ i.anime }}</h1>
         </div>
@@ -27,17 +34,17 @@
                 </div>
             </div>
         </div>
-        <div class="is-hidden notification is-warning"><button class="delete"></button><span>Message</span></div>
+        <div class="is-hidden profile notification is-warning"><button class="delete"></button><span>Message</span>
+        </div>
     </div>
 
     {% empty %}
 
-    <div class="center">
-        <div class="notification is-warning"><button class="delete"></button>No Quotes saved yet!</div>
-    </div>
+    <div class="notification is-warning"><button class="delete"></button>No Quotes saved yet!</div>
 
     {% endfor %}
 
+</div>
 </div>
 
 {% endblock %}
