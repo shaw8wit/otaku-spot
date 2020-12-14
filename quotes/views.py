@@ -15,6 +15,9 @@ url = 'https://animechanapi.xyz/api/quotes/'
 
 
 def index(request):
+    """
+    The default route function for Anime Quotes Application
+    """
 
     # Authenticated users view their home page
     if request.user.is_authenticated:
@@ -26,6 +29,10 @@ def index(request):
 
 
 def allquotes(request, page):
+    """
+    Returns all the quotes from the api.
+    """
+
     if not request.session.has_key(str(page)):
         response = requests.get(url + f"?page={page}")
         d = response.json()
@@ -42,6 +49,10 @@ def allquotes(request, page):
 
 
 def login_view(request):
+    """
+    Logs user in if valid data is given else return a error message.
+    """
+
     if request.method == "POST":
 
         # Attempt to sign user in
@@ -62,11 +73,19 @@ def login_view(request):
 
 
 def logout_view(request):
+    """
+    Logs user out.
+    """
+
     logout(request)
     return HttpResponseRedirect(reverse("index"))
 
 
 def register(request):
+    """
+    Registers the user if possible else returns an error message.
+    """
+
     if request.method == "POST":
         email = request.POST["email"]
         username = request.POST["username"]
@@ -94,6 +113,10 @@ def register(request):
 
 
 def search(request):
+    """
+    Renders the search page.
+    """
+
     return render(request, "quotes/search.html")
 
 
@@ -131,15 +154,27 @@ def display(request, n):
 
 
 def about(request):
+    """
+    Renders the about page.
+    """
+
     return render(request, "quotes/about.html")
 
 
 def contact(request):
+    """
+    Renders the contact page.
+    """
+
     return render(request, "quotes/contact.html")
 
 
 @csrf_exempt
 def addData(request):
+    """
+    Adds or deletes saved quote data from users.
+    """
+
     if request.method == "POST":
         content = json.loads(request.body)
         if request.user.is_authenticated:
@@ -169,6 +204,10 @@ def addData(request):
 
 @login_required
 def profile(request):
+    """
+    Renders the profile page.
+    """
+
     return render(request, "quotes/profile.html", {
         'data': request.user.data.all(),
     })
