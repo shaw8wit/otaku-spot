@@ -31,6 +31,7 @@ function getData(e) {
             quote: quote,
         })
     }).then(response => {
+        // * can use 200 fulfilled, 201 created, 202 Accepted
         if (response.status !== 204) return response.json();
     }).then(err => {
         if (icon.classList.contains('fa-plus')) {
@@ -50,3 +51,37 @@ function getData(e) {
 
 let saveQuote = document.querySelectorAll('.saveQuote');
 saveQuote.forEach(e => e.addEventListener('click', () => getData(e.closest('.card'))));
+
+function editProfile() {
+    username = document.querySelector('.username');
+    email = document.querySelector('.email');
+    notification = document.querySelector('.profnotif');
+    if (edit.innerText === 'Edit') {
+        edit.innerText = 'Save';
+        username.readOnly = false;
+        email.readOnly = false;
+    } else {
+        edit.innerText = 'Edit';
+        username.readOnly = true;
+        email.readOnly = true;
+        fetch('/quotes/profile', {
+            method: 'PUT',
+            body: JSON.stringify({
+                username: username.value,
+                email: email.value,
+            })
+        }).then(response => {
+            // * can use 200 fulfilled, 201 created, 202 Accepted
+            if (response.status !== 204) return response.json();
+        }).then(err => {
+            if (err) text = err.error;
+            else text = 'Successful!'
+        }).then(e => {
+            notification.querySelector('span').innerText = text;
+            notification.classList.toggle('is-hidden');
+        });
+    }
+}
+
+let edit = document.querySelector('.edit');
+edit.addEventListener('click', editProfile);

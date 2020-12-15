@@ -38,7 +38,6 @@ def allquotes(request, page):
         d = response.json()
         d = d['data']
         request.session[str(page)] = d
-        print(f"\n\nfetching page {page}\n\n")
     else:
         d = request.session[str(page)]
     return render(request, "quotes/index.html", {
@@ -202,11 +201,27 @@ def addData(request):
     }, status=400)
 
 
+@csrf_exempt
 @login_required
 def profile(request):
     """
     Renders the profile page.
+    Send POST request to change userdata.
     """
+
+    if request.method == "PUT":
+        content = json.loads(request.body)
+        username = content['username']
+        email = content['email']
+        change = False
+        if request.user.username != username:
+            change = True
+            request.user.username = username
+        if request.user.email != email:
+            change = True
+            request.user.email = email
+        request.user.save()
+        return HttpResponse(status=204)
 
     return render(request, "quotes/profile.html", {
         'data': request.user.data.all(),
