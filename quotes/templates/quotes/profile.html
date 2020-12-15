@@ -12,7 +12,7 @@
             <div class="field-body">
                 <div class="field">
                     <p class="control">
-                        <input class="input is-static" type="text" value="{{ user.username }}" readonly>
+                        <input class="input is-static username" type="text" value="{{ user.username }}" readonly>
                     </p>
                 </div>
             </div>
@@ -24,13 +24,14 @@
             <div class="field-body">
                 <div class="field">
                     <p class="control">
-                        <input class="input is-static" type="email" value="{{ user.email }}" readonly>
+                        <input class="input is-static email" type="email" value="{{ user.email }}" readonly>
                     </p>
                 </div>
             </div>
         </div>
-        <button class="column button is-narrow is-dark">Edit</button>
+        <button class="column button is-narrow is-dark edit">Edit</button>
     </div>
+    <div class="is-hidden notification is-warning profnotif"><button class="delete"></button><span>Message</span></div>
 
     {% for i in data %}
 
