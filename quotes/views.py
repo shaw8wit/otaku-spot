@@ -206,23 +206,35 @@ def addData(request):
 def profile(request):
     """
     Renders the profile page.
-    Send POST request to change userdata.
+    Send PUT request to change userdata.
     """
 
+    user = request.user
     if request.method == "PUT":
-        content = json.loads(request.body)
-        username = content['username']
-        email = content['email']
-        change = False
-        if request.user.username != username:
-            change = True
-            request.user.username = username
-        if request.user.email != email:
-            change = True
-            request.user.email = email
-        request.user.save()
-        return HttpResponse(status=204)
+        try:
+            content = json.loads(request.body)
+            username = content['username']
+            email = content['email']
+            change = False
+            if user.username != username:
+                if User.objects.filter(username=username).exists():
+                    return HttpResponse(status=204)
+                change = True
+                user.username = username
+            if user.email != email:
+                if User.objects.filter(email=email).exists():
+                    return HttpResponse(status=204)
+                change = True
+                user.email = email
+            if change:
+                user.save()
+                return HttpResponse(status=202)
+            return HttpResponse(status=200)
+        except:
+            return JsonResponse({
+                "error": "Something went wrong!!"
+            }, status=400)
 
     return render(request, "quotes/profile.html", {
-        'data': request.user.data.all(),
+        'data': user.data.all(),
     })
