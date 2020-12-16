@@ -52,6 +52,14 @@ function getData(e) {
 let saveQuote = document.querySelectorAll('.saveQuote');
 saveQuote.forEach(e => e.addEventListener('click', () => getData(e.closest('.card'))));
 
+function editNotification(notification, class_val, text) {
+    let class_list = ['is-warning', 'is-error', 'is-success', 'is-info'];
+    class_list.forEach(e => notification.classList.remove(e));
+    notification.querySelector('span').innerText = text;
+    notification.classList.add(class_val);
+    notification.classList.remove('is-hidden');
+}
+
 function editProfile() {
     username = document.querySelector('.username');
     email = document.querySelector('.email');
@@ -71,14 +79,12 @@ function editProfile() {
                 email: email.value,
             })
         }).then(response => {
-            // * can use 200 fulfilled, 201 created, 202 Accepted
-            if (response.status !== 204) return response.json();
+            if (![200, 202, 204].includes(response.status)) return response.json();
+            else if (response.status === 200) editNotification(notification, "is-info", "Profile data unchanged.");
+            else if (response.status === 204) editNotification(notification, "is-warning", "Username and/or Email already exists!");
+            else editNotification(notification, "is-success", "Profile data changed successfully.");
         }).then(err => {
-            if (err) text = err.error;
-            else text = 'Successful!'
-        }).then(e => {
-            notification.querySelector('span').innerText = text;
-            notification.classList.toggle('is-hidden');
+            if (err) editNotification(notification, "is-error", err.error);;
         });
     }
 }
