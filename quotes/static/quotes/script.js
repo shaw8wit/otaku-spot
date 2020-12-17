@@ -1,3 +1,4 @@
+// * removes the notification
 (document.querySelectorAll('.notification .delete') || []).forEach(($delete) => {
     var $notification = $delete.parentNode;
 
@@ -7,6 +8,7 @@
 });
 
 
+// * manupulates the hamburger menu
 let menu = document.querySelector('.navbar-burger');
 menu.addEventListener('click', () => {
     const target = menu.dataset.target;
@@ -15,43 +17,7 @@ menu.addEventListener('click', () => {
     $target.classList.toggle('is-active');
 });
 
-function getData(e) {
-    let anime = e.querySelector('.anime').innerText;
-    let character = e.querySelector('.character').innerText;
-    let quote = e.querySelector('.quote').innerText;
-    let notification = e.querySelector('.notification');
-    let icon = e.querySelector('.fa');
-    let text;
-
-    fetch('/quotes/addData', {
-        method: 'POST',
-        body: JSON.stringify({
-            anime: anime,
-            character: character,
-            quote: quote,
-        })
-    }).then(response => {
-        // * can use 200 fulfilled, 201 created, 202 Accepted
-        if (response.status !== 204) return response.json();
-    }).then(err => {
-        if (icon.classList.contains('fa-plus')) {
-            icon.classList.replace('fa-plus', 'fa-trash-o');
-            text = "Quote saved to profile successfully!";
-        } else {
-            icon.classList.replace('fa-trash-o', 'fa-plus');
-            text = "Quote deleted from profile successfully!";
-        }
-        if (err) text = err.error;
-    }).then(e => {
-        notification.querySelector('span').innerText = text;
-        notification.classList.toggle('is-hidden');
-        if (icon.classList.contains('profile')) window.location.reload();
-    });
-}
-
-let saveQuote = document.querySelectorAll('.saveQuote');
-saveQuote.forEach(e => e.addEventListener('click', () => getData(e.closest('.card'))));
-
+// * changes the notification 
 function editNotification(notification, class_val, text) {
     let class_list = ['is-warning', 'is-error', 'is-success', 'is-info'];
     class_list.forEach(e => notification.classList.remove(e));
@@ -59,6 +25,47 @@ function editNotification(notification, class_val, text) {
     notification.classList.add(class_val);
     notification.classList.remove('is-hidden');
 }
+
+function changeIcon(icon, class_val) {
+    icon.classList.remove('fa-plus', 'fa-trash-o');
+    icon.classList.add(class_val);
+}
+
+function getData(e) {
+    let icon = e.querySelector('.fa');
+    let plus = icon.classList.contains('fa-plus');
+    let quote = e.querySelector('.quote').innerText;
+    let anime = e.querySelector('.anime').innerText;
+    let notification = e.querySelector('.notification');
+    let character = e.querySelector('.character').innerText;
+
+    fetch('/quotes/addData', {
+        method: 'POST',
+        body: JSON.stringify({
+            anime: anime,
+            character: character,
+            quote: quote,
+            addDel: plus,
+        })
+    }).then(response => {
+        if (![200, 201].includes(response.status)) return response.json();
+        else if (response.status == 200) {
+            changeIcon(icon, 'fa-plus');
+            editNotification(notification, "is-info", "Quote deleted from profile successfully!");
+        } else {
+            changeIcon(icon, 'fa-trash-o');
+            editNotification(notification, "is-success", "Quote saved to profile successfully!");
+        }
+    }).then(err => {
+        if (err) editNotification(notification, "is-danger", err.error);
+        if (icon.classList.contains('profile')) e.parentNode.removeChild(e);
+    });
+}
+
+// * for saving or removing any quotes
+let saveQuote = document.querySelectorAll('.saveQuote');
+saveQuote.forEach(e => e.addEventListener('click', () => getData(e.closest('.card'))));
+
 
 function editProfile() {
     username = document.querySelector('.username');
@@ -89,5 +96,6 @@ function editProfile() {
     }
 }
 
+// * for editing profile
 let edit = document.querySelector('.edit');
-edit.addEventListener('click', editProfile);
+if (edit !== null) edit.addEventListener('click', editProfile);
