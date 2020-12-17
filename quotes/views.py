@@ -176,26 +176,38 @@ def addData(request):
 
     if request.method == "POST":
         content = json.loads(request.body)
-        if request.user.is_authenticated:
-            anime = content['anime']
-            character = content['character']
-            quote = content['quote']
+        user = request.user
+        if user.is_authenticated:
             try:
-                data = Data.objects.get(
-                    anime=anime, character=character, quote=quote)
-                request.user.data.remove(data)
-            except Data.DoesNotExist:
-                data = Data.objects.create(
-                    anime=anime, character=character, quote=quote)
-                data.save()
-                request.user.data.add(data)
-            request.user.save()
-            return HttpResponse(status=204)
+                anime = content['anime']
+                character = content['character']
+                quote = content['quote']
+                addDel = content['addDel']
+                if addDel:
+                    if not Data.objects.filter(anime=anime, character=character, quote=quote).exists():
+                        data = Data.objects.create(
+                            anime=anime, character=character, quote=quote)
+                        data.save()
+                    else:
+                        data = Data.objects.get(
+                            anime=anime, character=character, quote=quote)
+                    user.data.add(data)
+                    user.save()
+                    return HttpResponse(status=201)
+                else:
+                    data = Data.objects.get(
+                        anime=anime, character=character, quote=quote)
+                    user.data.remove(data)
+                    user.save()
+                    return HttpResponse(status=200)
+            except:
+                return JsonResponse({
+                    "error": "Something unknown went wrong LOL."
+                }, status=400)
         else:
             return JsonResponse({
                 "error": "Login to save quotes."
             }, status=400)
-        return HttpResponse(status=204)
     return JsonResponse({
         "error": "POST request required."
     }, status=400)
