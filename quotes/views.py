@@ -200,9 +200,9 @@ def addData(request):
                     user.data.remove(data)
                     user.save()
                     return HttpResponse(status=200)
-            except:
+            except Exception as e:
                 return JsonResponse({
-                    "error": "Something unknown went wrong LOL."
+                    "error": f'{e} seems to be the problem'
                 }, status=400)
         else:
             return JsonResponse({
