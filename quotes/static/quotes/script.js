@@ -45,7 +45,7 @@ function getData(e, status) {
     if (status) {
         window.prompt("Copy to clipboard: Ctrl+C, Enter", `${character} from ${anime} said: ${quote}`);
     } else {
-        let icon = e.querySelector('.fa');
+        let icon = e.querySelector('.saveQuote .fa');
         let plus = icon.classList.contains('fa-plus');
         let notification = e.querySelector('.notification');
 
