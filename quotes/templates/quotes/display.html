@@ -12,7 +12,7 @@
         </div>
         <div class="card-footer">
             {% if n > 1 %}
-            <a href="{% url 'display' n|add:'-1' %}" class="card-footer-item">
+            <a href="{% url 'quotes:display' n|add:'-1' %}" class="card-footer-item">
                 <i class="fa fa-lg fa-arrow-left"></i>
             </a>
             {% endif %}
@@ -26,11 +26,11 @@
                 <i class="fa fa-lg fa-share-alt"></i>
             </a>
             {% if n < 10 and n != 0 %}
-            <a href="{% url 'display' n|add:'1' %}" class="card-footer-item">
+            <a href="{% url 'quotes:display' n|add:'1' %}" class="card-footer-item">
                 <i class="fa fa-lg fa-arrow-right"></i>
             </a>
             {% elif n == 0 %}
-            <a href="{% url 'display' n %}" class="card-footer-item">
+            <a href="{% url 'quotes:display' n %}" class="card-footer-item">
                 <i class="fa fa-lg fa-retweet" aria-hidden="true"></i>
             </a>
             {% endif %}
