@@ -21,11 +21,11 @@ def index(request):
 
     # Authenticated users view their home page
     if request.user.is_authenticated:
-        return HttpResponseRedirect(reverse("allquotes", kwargs={'page': 1}))
+        return HttpResponseRedirect(reverse("quotes:allquotes", kwargs={'page': 1}))
 
     # Everyone else is prompted to sign in
     else:
-        return HttpResponseRedirect(reverse("register"))
+        return HttpResponseRedirect(reverse("quotes:register"))
 
 
 def allquotes(request, page):
@@ -62,7 +62,7 @@ def login_view(request):
         # Check if authentication successful
         if user is not None:
             login(request, user)
-            return HttpResponseRedirect(reverse("index"))
+            return HttpResponseRedirect(reverse("quotes:index"))
         else:
             return render(request, "quotes/login.html", {
                 "message": "Invalid email and/or password."
@@ -77,7 +77,7 @@ def logout_view(request):
     """
 
     logout(request)
-    return HttpResponseRedirect(reverse("index"))
+    return HttpResponseRedirect(reverse("quotes:index"))
 
 
 def register(request):
@@ -106,7 +106,7 @@ def register(request):
                 "message": "Email address already taken."
             })
         login(request, user)
-        return HttpResponseRedirect(reverse("index"))
+        return HttpResponseRedirect(reverse("quotes:index"))
     else:
         return render(request, "quotes/register.html")
 
