@@ -1,0 +1,74 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock %}Ghibli</title>
+    <link rel="stylesheet" href="{% static 'ghibli/style.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</head>
+
+<body>
+    <nav class="navbar is-transparent" role="navigation">
+        <div class="navbar-brand">
+            <a href="#" class="navbar-item px-5" title="Home">
+                <img src="https://cutewallpaper.org/21/sharingan-eye-wallpaper/Sharingan-Eyes-Wallpapers-Wallpaper-Cave-Sharingan-eyes-.jpg"
+                    alt="Application Icon" />
+            </a>
+            <a role="button" class="navbar-burger" data-target="navMenu" aria-label="menu" aria-expanded="false">
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+                <span aria-hidden="true"></span>
+            </a>
+        </div>
+
+        <div class="navbar-menu" id="navMenu">
+            <div class="navbar-start">
+                <a href="#" class="navbar-item px-4">
+                    Films
+                </a>
+                <a href="#" class="navbar-item px-4">
+                    People
+                </a>
+                <a href="#" class="navbar-item px-4">
+                    Locations
+                </a>
+                <a href="#" class="navbar-item px-4">
+                    Species
+                </a>
+                <a href="#" class="navbar-item px-4">
+                    Vehicles
+                </a>
+            </div>
+            <div class="navbar-end">
+                <div class="navbar-item">
+                    <div class="buttons">
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'quotes:logout' %}" class="button is-warning">
+                            <strong>Log out</strong>
+                        </a>
+                        {% else %}
+                        <a href="{% url 'quotes:register' %}" class="button register">
+                            <strong>Sign up</strong>
+                        </a>
+                        <a href="{% url 'quotes:login' %}" class="button login">
+                            <strong>Sign in</strong>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    {% block body %}
+    {% endblock %}
+
+    <script src="{% static 'ghibli/script.js' %}"></script>
+    <script src="https://use.fontawesome.com/c1f12e17c4.js"></script>
+</body>
+
+</html>
