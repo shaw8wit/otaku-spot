@@ -11,7 +11,7 @@ from .models import User, Data
 import requests
 import json
 
-url = 'https://animechanapi.xyz/api/quotes/'
+url = 'https://animechan.vercel.app/api/'
 
 
 def index(request):
@@ -34,9 +34,8 @@ def allquotes(request, page):
     """
 
     if not request.session.has_key(str(page)):
-        response = requests.get(url + f"?page={page}")
+        response = requests.get(f"{url}quotes?page={page}")
         d = response.json()
-        d = d['data']
         request.session[str(page)] = d
     else:
         d = request.session[str(page)]
@@ -134,13 +133,16 @@ def display(request, n):
             value = request.POST["value"]
             request.session['last'] = value
             if not request.session.has_key(value):
-                response = requests.get(url + f'?{option}={value}')
+                field = 'title' if option == 'anime' else 'name'
+                response = requests.get(
+                    f'{url}quotes/{option}?{field}={value}')
                 d = response.json()
                 request.session[value] = d['data']
         if n != 0:
             d = request.session[request.session['last']]
             data = d[n % 10]
-    except:
+    except Exception as e:
+        print(e)
         data = {'quote': "Couldn't find what you were looking for",
                 'character': "Shouvit Pradhan", 'anime': "Something went wrong"}
 
