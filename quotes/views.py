@@ -126,8 +126,7 @@ def display(request, n):
     try:
         if n == 0:
             response = requests.get(url + 'random')
-            d = response.json()
-            data = d['data'][0]
+            data = response.json()
         elif request.method == "POST":
             option = request.POST["option"]
             value = request.POST["value"]
@@ -137,12 +136,11 @@ def display(request, n):
                 response = requests.get(
                     f'{url}quotes/{option}?{field}={value}')
                 d = response.json()
-                request.session[value] = d['data']
+                request.session[value] = d
         if n != 0:
             d = request.session[request.session['last']]
             data = d[n % 10]
-    except Exception as e:
-        print(e)
+    except:
         data = {'quote': "Couldn't find what you were looking for",
                 'character': "Shouvit Pradhan", 'anime': "Something went wrong"}
 
