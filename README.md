@@ -28,4 +28,4 @@ A multi-application website for anime and manga fans (otakus).
 ### API's used
 
 + [Studio Ghibli](https://ghibliapi.herokuapp.com/)
-+ [Animechanapi](https://animechanapi.xyz/)
++ [Animechanapi](https://animechan.vercel.app/)
