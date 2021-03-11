@@ -63,11 +63,14 @@ def login_view(request):
             login(request, user)
             return HttpResponseRedirect(reverse("quotes:index"))
         else:
-            return render(request, "quotes/login.html", {
-                "message": "Invalid email and/or password."
+            return render(request, "quotes/auth.html", {
+                "message": "Invalid email and/or password.",
+                "type": 1
             })
     else:
-        return render(request, "quotes/login.html")
+        return render(request, "quotes/auth.html", {
+            "type": 1
+        })
 
 
 def logout_view(request):
@@ -92,8 +95,9 @@ def register(request):
         password = request.POST["password"]
         confirmation = request.POST["confirmation"]
         if password != confirmation:
-            return render(request, "quotes/register.html", {
-                "message": "Passwords must match."
+            return render(request, "quotes/auth.html", {
+                "message": "Passwords must match.",
+                "type": 0
             })
 
         # Attempt to create new user
@@ -101,13 +105,16 @@ def register(request):
             user = User.objects.create_user(username, email, password)
             user.save()
         except IntegrityError as e:
-            return render(request, "quotes/register.html", {
-                "message": "Email address already taken."
+            return render(request, "quotes/auth.html", {
+                "message": "Email/Username already taken.",
+                "type": 0
             })
         login(request, user)
         return HttpResponseRedirect(reverse("quotes:index"))
     else:
-        return render(request, "quotes/register.html")
+        return render(request, "quotes/auth.html", {
+            "type": 0
+        })
 
 
 def search(request):
@@ -157,7 +164,7 @@ def about(request):
     Renders the about page.
     """
 
-    return render(request, "quotes/about.html")
+    return render(request, "quotes/info.html", {'type': 1})
 
 
 def contact(request):
@@ -165,7 +172,7 @@ def contact(request):
     Renders the contact page.
     """
 
-    return render(request, "quotes/contact.html")
+    return render(request, "quotes/info.html", {'type': 0})
 
 
 @csrf_exempt
@@ -246,6 +253,12 @@ def profile(request):
             return JsonResponse({
                 "error": "Something went wrong!!"
             }, status=400)
+
+    # data = Data.objects.get(anime='Hyouka', character='Oreki Houtarou',
+    #                         quote='The inexperienced draw attention by acting differently.')
+    # for user in User.objects.all():
+    #     if user.data.filter(pk=data.pk).exists():
+    #         print(user.username)
 
     return render(request, "quotes/profile.html", {
         'data': user.data.all(),

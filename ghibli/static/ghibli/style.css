@@ -1,0 +1,18 @@
+html {
+    background: #7acc92e0 !important;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.login {
+    background-color: #009b58fa !important;
+    color: white !important;
+}
+
+.register {
+    background-color: #0083f5fa !important;
+    color: white !important;
+}

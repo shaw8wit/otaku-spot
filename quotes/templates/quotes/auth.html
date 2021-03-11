@@ -5,13 +5,40 @@
 <div class="center">
     <div class="card user">
         <div class="card-content">
-            <h2 class="title">Register</h2>
+            <h2 class="title">{% if type %}Login{% else %}Register{% endif %}</h2>
 
             {% if message %}
             <div class="notification is-warning"><button class="delete"></button>{{ message }}</div>
             {% endif %}
 
-            <form action="{% url 'register' %}" method="post">
+            {% if type %}
+            <form action="{% url 'quotes:login' %}" method="post">
+                {% csrf_token %}
+
+                <div class="field">
+                    <label for="username" class="label">Username:</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="text" name="username" placeholder="Username" required>
+                        <span class="icon is-left">
+                            <i class="fa fa-user"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="password" class="label">Password:</label>
+                    <div class="control has-icons-left">
+                        <input class="input" type="password" name="password" placeholder="Password" required>
+                        <span class="icon is-left">
+                            <i class="fa fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+
+                <input class="button login px-5" type="submit" value="Login">
+            </form>
+            {% else %}
+            <form action="{% url 'quotes:register' %}" method="post">
                 {% csrf_token %}
 
                 <div class="field">
@@ -57,10 +84,20 @@
 
                 <input class="button register px-5" type="submit" value="Register">
             </form>
+            {% endif %}
         </div>
 
         <center>or</center>
 
+        {% if type %}
+        <a href="{% url 'quotes:register' %}">
+            <footer class="card-footer mt-4">
+                <p class="card-footer-item register">
+                    Register
+                </p>
+            </footer>
+        </a>
+        {% else %}
         <a href="{% url 'quotes:login' %}">
             <footer class="card-footer mt-4">
                 <p class="card-footer-item login">
@@ -68,6 +105,7 @@
                 </p>
             </footer>
         </a>
+        {% endif %}
     </div>
 </div>
 
