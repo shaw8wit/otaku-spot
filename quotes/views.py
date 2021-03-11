@@ -164,7 +164,7 @@ def about(request):
     Renders the about page.
     """
 
-    return render(request, "quotes/about.html")
+    return render(request, "quotes/info.html", {'type': 1})
 
 
 def contact(request):
@@ -172,7 +172,7 @@ def contact(request):
     Renders the contact page.
     """
 
-    return render(request, "quotes/contact.html")
+    return render(request, "quotes/info.html", {'type': 0})
 
 
 @csrf_exempt
