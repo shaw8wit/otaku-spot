@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from .const import *
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -20,7 +21,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '(4u$v$xlo0ppof*&&4&(#f=7xd60x$u(+8@-k_5^_*mkrm@evp'
+SECRET_KEY = CONST_SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -76,14 +77,7 @@ WSGI_APPLICATION = 'Anime.wsgi.application'
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'wsrxtqjx',
-        'USER': 'wsrxtqjx',
-        'PASSWORD': '2Cex-rq5rwKe-6vtP13Z63jXQnkcCEMI',
-        'HOST': 'john.db.elephantsql.com',
-        'PORT': '5432',
-    }
+    'default': CONST_DB
 }
 
 AUTH_USER_MODEL = "quotes.User"
